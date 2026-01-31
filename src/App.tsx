@@ -1,9 +1,9 @@
-import CardCategoria from "./components/categoria/cardcategoria/CardCategoria";
+import Footer from "./components/footer/footer";
 
 function App() {
   return (
     <>
-      <CardCategoria />;
+      <Footer></Footer>
     </>
   );
 };
