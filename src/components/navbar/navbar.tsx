@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import { useState } from "react";
 
@@ -5,17 +6,17 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigationItems = [
-    { label: "Home", path: "/"},
+    { label: "Home", path: "/home"},
     { label: "Viagens", path: "/"},
     { label: "Motorista", path: "/"},
   ]
 
   return (
     <header className="flex bg-gradient-custom font-roboto w-full p-4 items-center">
-      <a href="#" className="font-extrabold flex items-center gap-1">
+      <Link to={navigationItems[0].path} className="font-extrabold flex items-center gap-1">
         <img src={Logo} alt="Velo" className="w-10 scale-130" />
         <h1 className="text-2xl hidden sm:block " >VELO</h1>
-      </a>
+      </Link>
       <nav className="font-bold sm:ml-auto flex items-center gap-5 text-black/80 ">
         <button
           className="sm:hidden focus:outline-none text-2xl"
@@ -30,11 +31,11 @@ function Navbar() {
             <h1 className="flex text-2xl block " >VELO</h1>
           </div>
           {navigationItems.map((item) => (
-            <a href="#" className="mb-10 text-2xl">{item.label}</a>
+            <Link to={item.path} className="mb-10 text-2xl">{item.label}</Link>
           ))} 
         </div>
         {navigationItems.map((item) => (
-          <a href="#" className="sm:flex hidden">{item.label}</a>
+          <Link to={item.path} className="sm:flex hidden">{item.label}</Link>
         ))} 
       </nav>
       <div className="ml-10 flex gap-2 items-center font-bold sm:ml-10 ml-auto">
