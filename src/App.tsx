@@ -1,7 +1,7 @@
-import ListaCategorias from "./components/categoria/listacategorias/ListaCategorias";
+import FormCategoria from "./components/categoria/formcategoria/FormCategoria";
 
 function App() {
-  return <ListaCategorias />;
+  return <FormCategoria />;
 }
 
 export default App;
