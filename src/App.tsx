@@ -2,6 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/footer/footer";
 import Navbar from "./components/navbar/navbar";
 import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Cadastro from "./pages/cadastro/Cadastro";
+
 import { ToastContainer } from "react-toastify";
 
 function App() {
@@ -10,13 +13,18 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Navbar></Navbar>
+
         <main>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
-                        <Route path='/home' element={<Home />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/cadastro' element={<Cadastro />} />
+
           </Routes>
         </main>
+
         <Footer></Footer>
       </BrowserRouter>
     </div>
