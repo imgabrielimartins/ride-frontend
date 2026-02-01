@@ -76,17 +76,17 @@ function Sobre() {
   return (
     <main className="w-full ">
       <section
-        className="relative min-h-screen px-[5%] py-32 flex flex-col items-center">
-        <div className="absolute inset-0 backdrop-blur-sm" />
+        className="min-h-screen px-[5%] py-32 flex flex-col items-center">
+        <div className="inset-0 backdrop-blur-sm" />
 
-        <header className="relative z-10 text-center mb-20">
+        <header className="text-center mb-20">
           <h1 className="font-sansita text-6xl md:text-7xl font-bold mb-6">
             Sobre a Vertex.bah
           </h1>
           <div className="mx-auto h-1 w-24 bg-orange-600 rounded-full" />
         </header>
 
-        <section className="relative z-10 max-w-6xl w-full bg-black/20 rounded-3xl shadow-2xl p-10 md:p-14 flex flex-col md:flex-row gap-12 items-center mb-20">
+        <section className="max-w-6xl w-full bg-black/20 rounded-3xl shadow-2xl p-10 md:p-14 flex flex-col md:flex-row gap-12 items-center mb-20">
           <img
             src={vertexLogo}
             alt="Vertex.bah"
@@ -108,7 +108,7 @@ function Sobre() {
           </div>
         </section>
 
-        <section className="relative z-10 max-w-6xl w-full mb-20">
+        <section className="max-w-6xl w-full mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
             Nossos Valores
           </h2>
@@ -129,7 +129,7 @@ function Sobre() {
           </div>
         </section>
 
-        <section className="relative z-10 max-w-6xl w-full mb-20">
+        <section className="max-w-6xl w-full mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
             Stack Tecnológica
           </h2>
@@ -157,7 +157,7 @@ function Sobre() {
           </div>
         </section>
 
-        <section className="relative z-10 max-w-7xl w-full mb-24">
+        <section className="max-w-7xl w-full mb-24">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
             Nosso Time
           </h2>
@@ -186,7 +186,7 @@ function Sobre() {
           </div>
         </section>
 
-        <footer className="relative z-10 text-center max-w-3xl">
+        <footer className="text-center max-w-3xl">
           <h3 className="text-3xl font-bold mb-4">
             Pronto para transformar sua ideia em produto?
           </h3>
