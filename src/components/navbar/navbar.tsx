@@ -8,7 +8,7 @@ function Navbar() {
   const navigationItems = [
     { label: "Home", path: "/home"},
     { label: "Viagens", path: "/"},
-    { label: "Motorista", path: "/"},
+    { label: "Sobre", path: "/sobre"},
   ]
 
   return (
@@ -23,9 +23,9 @@ function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
         >☰</button>
         {isOpen && (
-          <div className="w-full h-full absolute bg-black/10 inset-0" onClick={() => setIsOpen(false)}></div>
+          <div className="w-full h-full fixed bg-black/10 inset-0" onClick={() => setIsOpen(false)}></div>
         )}
-        <div className={`fixed flex flex-col top-0 left-0 w-fit h-full p-6 rounded-r-xl items-center sm:hidden bg-gradient-custom transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`} >
+        <div className={`z-10 fixed flex flex-col top-0 left-0 w-fit h-full p-6 rounded-r-xl items-center sm:hidden bg-gradient-custom transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`} >
           <div className="flex mb-20 items-center">
             <img src={Logo} alt="Velo" className="w-10 scale-130" />
             <h1 className="flex text-2xl block " >VELO</h1>
