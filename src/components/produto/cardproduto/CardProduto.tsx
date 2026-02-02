@@ -18,7 +18,6 @@ function CardProduto({ produto }: CardProdutoProps) {
         animate-fadeIn
       "
     >
-      {/* Cabeçalho */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-gray-800">
           Detalhes da Viagem
@@ -57,7 +56,6 @@ function CardProduto({ produto }: CardProdutoProps) {
         </div>
       </div>
 
-      {/* Conteúdo */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-800">
         <div>
           <p className="text-sm text-gray-600">Título:</p>
@@ -115,13 +113,11 @@ function CardProduto({ produto }: CardProdutoProps) {
         </div>
       </div>
 
-      {/* Descrição */}
       <div className="mt-4">
         <p className="text-sm text-gray-600">Descrição:</p>
         <p className="text-gray-800">{produto.descricao}</p>
       </div>
 
-      {/* Rodapé */}
       <div className="mt-4 flex justify-between text-sm text-gray-600">
         <span>
           Data: {new Date(produto.data).toLocaleDateString("pt-BR")}

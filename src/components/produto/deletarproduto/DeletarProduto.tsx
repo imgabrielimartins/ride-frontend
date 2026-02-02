@@ -12,12 +12,10 @@ function DeletarProduto() {
   const { usuario, handleLogout } = useContext(AuthContext)
   const token = usuario.token
 
-  // Memoiza o header para não recriar a cada render
   const header = useMemo(() => ({
     headers: { Authorization: token || "" },
   }), [token]);
 
-  // Estado inicial seguro
   const [produto, setProduto] = useState<Produto>({
     id: 0,
     titulo: "",
@@ -35,10 +33,9 @@ function DeletarProduto() {
     usuario: {} as any,
   });
 
-  const [loading, setLoading] = useState(true);   // Loading ao buscar produto
-  const [deletando, setDeletando] = useState(false); // Loading ao deletar
+  const [loading, setLoading] = useState(true);
+  const [deletando, setDeletando] = useState(false);
 
-  // =================== BUSCAR PRODUTO ===================
   useEffect(() => {
     if (id) {
       const carregarProduto = async () => {
@@ -55,7 +52,6 @@ function DeletarProduto() {
     }
   }, [id, header]);
 
-  // =================== DELETAR PRODUTO ===================
   async function confirmarDelete() {
     if (!id) return;
 

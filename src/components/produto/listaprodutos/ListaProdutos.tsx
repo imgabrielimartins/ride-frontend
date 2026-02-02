@@ -13,7 +13,6 @@ function ListaProdutos() {
   const { usuario, handleLogout } = useContext(AuthContext);
   const token = usuario.token;
 
-  // Memoiza o header para que não seja recriado em cada render
   const header = useMemo(() => ({
     headers: {
       Authorization: token,
@@ -34,11 +33,10 @@ function ListaProdutos() {
     };
 
     carregarProdutos();
-  }, [header]); // agora não gera loop infinito
+  }, [header]);
 
   return (
     <div className="container mx-auto my-8 px-4">
-      {/* Cabeçalho: título + botão novo produto */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <h1 className="text-4xl font-bold text-gray-800">Produtos</h1>
         <Link
@@ -54,14 +52,12 @@ function ListaProdutos() {
         </Link>
       </div>
 
-      {/* Feedback */}
       {loading && <p className="text-center text-gray-600">Carregando produtos...</p>}
       {erro && <p className="text-center text-red-600">{erro}</p>}
       {!loading && produtos.length === 0 && !erro && (
         <p className="text-center text-gray-600">Nenhum produto cadastrado ainda.</p>
       )}
 
-      {/* Grid de produtos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {!loading &&
           produtos.map((produto) => (

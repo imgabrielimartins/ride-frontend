@@ -38,7 +38,6 @@ function FormProduto() {
     usuario: {} as any,
   });
 
-  // =================== BUSCAR DADOS ===================
   useEffect(() => {
     buscar("/categorias", setCategorias, header);
 
@@ -47,7 +46,6 @@ function FormProduto() {
     }
   }, [id]);
 
-  // =================== ATUALIZA ESTADO ===================
   function atualizarEstado(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
@@ -58,12 +56,10 @@ function FormProduto() {
     setProduto((prev) => {
       const updated = { ...prev, [name]: novoValor };
 
-      // Calcular tempo automaticamente se tiver distância e velocidade
       if (
         updated.distanciaKm > 0 &&
         updated.velocidadeMediaKmh > 0
       ) {
-        // Chama API do backend para calcular tempo
         calcularTempo(
           updated.id,
           (tempo: number) => setProduto((p) => ({ ...p, tempoMinutos: tempo })),
@@ -75,7 +71,6 @@ function FormProduto() {
     });
   }
 
-  // =================== SALVAR ===================
   async function salvar(e: React.FormEvent) {
     e.preventDefault();
 
@@ -108,7 +103,6 @@ function FormProduto() {
         </h1>
 
         <form onSubmit={salvar} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Título */}
           <div className="md:col-span-2">
             <label className="text-gray-700 font-medium">Descrição da carona</label>
             <input
@@ -121,7 +115,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Preço */}
           <div>
             <label className="text-gray-700 font-medium">Valor</label>
             <input
@@ -134,7 +127,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Data */}
           <div>
             <label className="text-gray-700 font-medium">Data e horário</label>
             <input
@@ -147,7 +139,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Origem */}
           <div>
             <label className="text-gray-700 font-medium">Origem</label>
             <input
@@ -160,7 +151,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Destino */}
           <div>
             <label className="text-gray-700 font-medium">Destino</label>
             <input
@@ -173,7 +163,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Distância */}
           <div>
             <label className="text-gray-700 font-medium">Distância (km)</label>
             <input
@@ -186,7 +175,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Tempo (calculado automaticamente) */}
           <div>
             <label className="text-gray-700 font-medium">Tempo (min)</label>
             <input
@@ -199,7 +187,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Velocidade */}
           <div>
             <label className="text-gray-700 font-medium">Velocidade média (km/h)</label>
             <input
@@ -212,7 +199,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Observações */}
           <div className="md:col-span-2">
             <label className="text-gray-700 font-medium">Observações</label>
             <textarea
@@ -224,7 +210,6 @@ function FormProduto() {
             />
           </div>
 
-          {/* Categoria */}
           <div className="md:col-span-2">
             <label className="text-gray-700 font-medium">Tipo de veículo</label>
             <select
@@ -247,7 +232,6 @@ function FormProduto() {
             </select>
           </div>
 
-          {/* Preferência */}
           <div className="md:col-span-2 flex items-center gap-3">
             <input
               type="checkbox"
@@ -261,7 +245,6 @@ function FormProduto() {
             </label>
           </div>
 
-          {/* Botões */}
           <div className="md:col-span-2 flex justify-end gap-4 mt-6">
             <button
               type="button"
