@@ -11,12 +11,11 @@ import Sobre from "./pages/sobre/Sobre";
 function App() {
   return (
     <>
-    <div className="min-h-screen flex flex-col">
       <BrowserRouter>
         <ToastContainer />
         <Navbar/>
 
-        <main>
+        <main className="min-h-screen flex flex-col">
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
@@ -30,7 +29,7 @@ function App() {
 
         <Footer/>
       </BrowserRouter>
-    </div>
+    
   </>
   );
 };
