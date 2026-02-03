@@ -99,8 +99,8 @@ function Home() {
       <section className="font-roboto flex flex-col items-center w-full sm:px-15 px-5 mb-7">
         <h1 className="mt-10 sm:mt-0 font-extrabold mb-10">COMO O <span className="text-custom-pink">VELO</span> FUNCIONA?</h1>
         <div className="font-semibold text-center flex flex-wrap justify-around w-full sm:gap-3 gap-10">
-          {funcionamento.map((texto) => (
-            <div className="flex flex-col sm:w-70 w-full gap-4 items-center">
+          {funcionamento.map((texto, index) => (
+            <div key={index} className="flex flex-col sm:w-70 w-full gap-4 items-center">
               <img src={texto.img} alt="" className="border rounded-lg"/>
               <p className="w-[85%]">{texto.texto}</p>
             </div>
