@@ -10,7 +10,6 @@ import PerfilPage from "./pages/perfil/PerfilPage";
 import Sobre from "./pages/sobre/Sobre";
 import ListaCategorias from "./components/categoria/listacategorias/ListaCategorias";
 import FormCategoria from "./components/categoria/formcategoria/FormCategoria";
-import DeletarCategoria from "./components/categoria/cardcategoria/CardCategoria";
 import DashboardMotorista from "./pages/home/homemotorista/DashboardMotorista";
 import DashboardPassageiro from "./pages/home/homepassageiro/DashboardPassageiro";
 import DeletarCategoria from "./components/categoria/deletarcategoria/DeletarCategoria";

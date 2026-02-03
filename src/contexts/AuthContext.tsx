@@ -77,7 +77,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }, []);
 
-  // 🔹 LOGIN
   async function handleLogin(dadosLogin: UsuarioLogin): Promise<void> {
     setIsLoading(true);
 
@@ -102,7 +101,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
             })
           );
 
-          // 🔥 Redirecionamento automático
           if (usuarioRetornado.tipoUsuario === "MOTORISTA") {
             navigate("/dashboard-motorista");
           } else {
@@ -121,7 +119,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  // 🔹 LOGOUT
+
   function handleLogout() {
     setUsuario({
       id: 0,
