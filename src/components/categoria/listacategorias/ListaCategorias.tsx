@@ -82,7 +82,7 @@ function ListaCategorias() {
                 className="
                   px-5 py-2.5
                   rounded-xl
-                  bg-gradient-to-r from-pink-300 to-pink-400
+                  bg-linear-to-br from-pink-300 to-pink-400
                   hover:from-pink-400 hover:to-pink-500
                   text-white font-medium
                   shadow-md
