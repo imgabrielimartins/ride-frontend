@@ -16,14 +16,14 @@ function CorridasUsuario({ produtos, tipoUsuario }: CorridasUsuarioProps) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       
-      {/* Cabeçalho com usuário autenticado */}
+      
       {isAuthenticated && usuario && (
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <span className="text-gray-700 font-medium text-lg">
-            Olá, {usuario.nome}! 👋
+            Olá, {usuario.nome}! 
           </span>
 
-          {/* Botão de logout só para motoristas */}
+          
           {isMotorista && (
             <button
               onClick={handleLogout}
@@ -35,7 +35,6 @@ function CorridasUsuario({ produtos, tipoUsuario }: CorridasUsuarioProps) {
         </div>
       )}
 
-      {/* Mensagem caso não haja corridas */}
       {(!produtos || produtos.length === 0) ? (
         <div className="bg-white rounded-lg shadow-md p-8 text-center">
           <CarIcon size={64} className="mx-auto text-gray-400 mb-4" />
@@ -50,7 +49,6 @@ function CorridasUsuario({ produtos, tipoUsuario }: CorridasUsuarioProps) {
         </div>
       ) : (
         <>
-          {/* Cabeçalho da lista de corridas */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-800">
               {tipoUsuario === "MOTORISTA"
@@ -62,7 +60,6 @@ function CorridasUsuario({ produtos, tipoUsuario }: CorridasUsuarioProps) {
             </span>
           </div>
 
-          {/* Lista de corridas */}
           <div className="space-y-4">
             {produtos.map((produto) => (
               <div
@@ -73,7 +70,6 @@ function CorridasUsuario({ produtos, tipoUsuario }: CorridasUsuarioProps) {
               >
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
 
-                  {/* Informações principais */}
                   <div className="flex-1">
                     <div className="flex items-start justify-between mb-3">
                       <div>
@@ -166,7 +162,6 @@ function CorridasUsuario({ produtos, tipoUsuario }: CorridasUsuarioProps) {
                     </div>
                   </div>
 
-                  {/* Preço */}
                   <div className="flex md:flex-col items-center md:items-end gap-2">
                     <div className="bg-gradient-to-br from-green-500 to-green-600 text-white px-6 py-4 rounded-lg text-center shadow-lg">
                       <p className="text-xs font-medium opacity-90 mb-1">PREÇO</p>

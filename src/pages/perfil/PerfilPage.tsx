@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
 import { AuthContext } from "../../contexts/AuthContext";
 import type Usuario from "../../models/Usuario";
 import { atualizar } from "../../services/Service";
@@ -16,7 +15,7 @@ function PerfilPage() {
   const { usuario, handleLogout, isAuthenticated } = useContext(AuthContext);
   const token = usuario.token;
 
-  // 🔐 Verifica autenticação
+
   useEffect(() => {
     if (token === "") {
       ToastAlerta("Você precisa estar logado", "info");
@@ -24,7 +23,6 @@ function PerfilPage() {
     }
   }, [token, navigate]);
 
-  // Mapeia UsuarioLogin → Usuario
   const usuarioCompleto: Usuario = mapUsuarioLoginParaUsuario(usuario);
 
 
@@ -38,7 +36,6 @@ function PerfilPage() {
     };
 
     try {
-      // Enviar os dados para a API
       await atualizar(
         "/usuarios/atualizar",
         payload,
@@ -50,18 +47,15 @@ function PerfilPage() {
 
       ToastAlerta("Perfil atualizado com sucesso", "sucesso");
     } catch (error: any) {
-      // Se o erro for de autenticação, fazer logout
       if (error.toString().includes("401") || error.toString().includes("403")) {
         handleLogout();
       } else {
-        // Caso contrário, exibir erro genérico
         ToastAlerta("Erro ao atualizar usuário", "erro");
         console.error(error);
       }
     }
   }
 
-  // Evita renderizar sem autenticação
   if (!isAuthenticated) return null;
 
   return (
