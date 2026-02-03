@@ -97,9 +97,9 @@ export function AuthProvider({ children }: AuthProvidersProps) {
             
             setTimeout(() => {
                 if (usuarioLogin.tipoUsuario === "MOTORISTA") {
-                    navigate("/perfil");
+                    navigate("/home");
                 } else {
-                    navigate("/perfil");
+                    navigate("/home");
                 }
             }, 100);
             
