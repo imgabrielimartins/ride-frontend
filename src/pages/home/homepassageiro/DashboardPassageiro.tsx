@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { buscar } from "../../../services/Service";
+
+interface Usuario {
+  id: number;
+  nome: string;
+  tipoUsuario: "PASSAGEIRO" | "MOTORISTA";
+}
 
 interface Destino {
+  id: string;
   nome: string;
-  endereco?: string;
 }
 
 interface Viagem {
@@ -10,124 +20,166 @@ interface Viagem {
   origem: string;
   destino: string;
   horario: string;
+  status: "AGUARDANDO" | "EM_ANDAMENTO" | "FINALIZADA";
 }
 
-export default function Dashboard() {
-  const [destino, setDestino] = useState(""); 
-  const [destinosRecentes, setDestinosRecentes] = useState<Destino[]>([
-    { nome: "Casa", endereco: "Rua das Flores, 123" },
-    { nome: "Trabalho", endereco: "Av. Paulista, 1000" },
-    { nome: "Shopping Center" },
-  ]);
+export default function DashboardPassageiro() {
+  const { usuario, isAuthenticated, token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const [proximaViagem, setProximaViagem] = useState<Viagem | null>({
-    motorista: "Carlos Silva (Toyota Corolla)",
-    origem: "Sua Localização Atual",
-    destino: "Aeroporto de Congonhas",
-    horario: "Hoje, 14:30",
-  });
+  const [destino, setDestino] = useState("");
+  const [destinosRecentes, setDestinosRecentes] = useState<Destino[]>([]);
+  const [proximaViagem, setProximaViagem] = useState<Viagem | null>(null);
+  const [motoristaSelecionado, setMotoristaSelecionado] =
+    useState<Usuario | null>(null);
 
-  const handleDestinoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDestino(e.target.value);
-  };
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
 
-  const solicitarCarona = () => {
+    if (usuario?.tipoUsuario === "MOTORISTA") {
+      navigate("/dashboard-motorista");
+    }
+  }, [isAuthenticated, usuario, navigate]);
+
+  useEffect(() => {
+    async function buscarMotoristaAleatorio() {
+      try {
+        const motoristas: Usuario[] = await buscar(
+          "/usuarios?tipoUsuario=MOTORISTA",
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        if (!motoristas || motoristas.length === 0) {
+          setMotoristaSelecionado(null);
+          return;
+        }
+
+        const motoristaAleatorio =
+          motoristas[Math.floor(Math.random() * motoristas.length)];
+
+        setMotoristaSelecionado(motoristaAleatorio);
+      } catch (error) {
+        console.error("Erro ao buscar motorista:", error);
+        setMotoristaSelecionado(null);
+      }
+    }
+
+    if (isAuthenticated && token) {
+      buscarMotoristaAleatorio();
+    }
+  }, [isAuthenticated, token]);
+
+  function solicitarCarona() {
     if (!destino.trim()) {
-      alert("Digite um destino antes de solicitar a carona!");
+      alert("Digite um destino!");
+      return;
+    }
+
+    if (!motoristaSelecionado) {
+      alert("Nenhum motorista disponível no momento.");
       return;
     }
 
     const novaViagem: Viagem = {
-      motorista: "Motorista Aleatório (Carro XYZ)",
-      origem: "Sua Localização Atual",
+      motorista: motoristaSelecionado.nome,
+      origem: "Sua localização atual",
       destino,
       horario: "Agora",
+      status: "AGUARDANDO",
     };
 
     setProximaViagem(novaViagem);
 
-    setDestinosRecentes((prev) => [
-      { nome: destino },
-      ...prev.filter((d) => d.nome !== destino),
-    ]);
+    setDestinosRecentes((prev) => {
+      const filtrados = prev.filter((d) => d.nome !== destino);
+      return [{ id: crypto.randomUUID(), nome: destino }, ...filtrados];
+    });
 
-    setDestino(""); 
-  };
+    setDestino("");
+  }
 
-  const cancelarViagem = () => {
+  function cancelarCorrida() {
     setProximaViagem(null);
-  };
+  }
 
   return (
-    <div className="flex h-screen bg-gray-50 font-sans">
-      <div className="w-64 bg-white shadow-lg p-6 flex flex-col gap-4">
-        <div className="text-2xl font-bold flex items-center gap-2 mb-8">
-          <span className="text-pink-400">📍</span>
-          <span>Velo</span>
+    <div className="min-h-screen bg-linear-to-br from-yellow-50 via-white to-pink-50 flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-3xl bg-white/80 backdrop-blur-md rounded-3xl shadow-xl p-8 border border-white/40">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Para onde vamos hoje?
+          </h1>
+
+          {motoristaSelecionado && (
+            <p className="mt-2 text-sm text-gray-600">
+              🚘 Motorista disponível:{" "}
+              <strong>{motoristaSelecionado.nome}</strong>
+            </p>
+          )}
         </div>
-        <button className="w-full text-left px-4 py-2 rounded-lg bg-linear-to-r from-yellow-200 to-pink-200 font-medium">
-          Dashboard
-        </button>
-        <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100">Minhas Viagens</button>
-        <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100">Pagamentos</button>
-        <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100">Mensagens</button>
-        <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100">Perfil</button>
-        <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-gray-100">Ajuda</button>
-      </div>
 
-      <div className="flex-1 p-10">
-        <h1 className="text-2xl font-semibold mb-6">Olá, Ana! Para onde vamos?</h1>
-
-        <div className="flex gap-4 mb-6">
+        <div className="flex flex-col md:flex-row gap-4 mb-10">
           <input
             type="text"
             value={destino}
-            onChange={handleDestinoChange}
+            onChange={(e) => setDestino(e.target.value)}
             placeholder="Digite seu destino..."
-            className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+            className="flex-1 p-4 rounded-2xl border focus:ring-2 focus:ring-pink-300"
           />
-          <button
+
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.05 }}
             onClick={solicitarCarona}
-            className="px-6 py-3 bg-linear-to-r from-yellow-200 to-pink-200 rounded-lg font-semibold"
+            className="px-8 py-4 rounded-2xl bg-linear-to-r from-yellow-300 to-pink-300 font-semibold shadow-md"
           >
-            Solicitar Carona
-          </button>
+            Solicitar Corrida
+          </motion.button>
         </div>
 
-        <div className="mb-6">
-          <h2 className="font-semibold mb-3">Destinos Recentes</h2>
-          <div className="flex gap-4">
-            {destinosRecentes.map((dest) => (
-              <div
-                key={dest.nome}
-                className="border border-pink-200 rounded-lg p-3 flex flex-col items-start gap-1 w-40"
-              >
-                <span className="text-pink-400">📍</span>
-                <span className="font-medium">{dest.nome}</span>
-                {dest.endereco && <span className="text-gray-500 text-sm">{dest.endereco}</span>}
-              </div>
-            ))}
-          </div>
-        </div>
+        <AnimatePresence>
+          {proximaViagem && (
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
+              className="bg-linear-to-r from-yellow-100 to-pink-100 rounded-2xl p-6 shadow-inner"
+            >
+              <h2 className="text-xl font-semibold mb-4">
+                🚗 Próxima Corrida
+              </h2>
 
-        {proximaViagem && (
-          <div className="border border-pink-200 rounded-lg p-6 flex flex-col gap-4 max-w-md">
-            <h2 className="font-semibold text-lg">Próxima Viagem</h2>
-            <p><strong>Motorista:</strong> {proximaViagem.motorista}</p>
-            <p><strong>Origem:</strong> {proximaViagem.origem}</p>
-            <p><strong>Destino:</strong> {proximaViagem.destino}</p>
-            <p><strong>Horário:</strong> {proximaViagem.horario}</p>
-            <div className="flex gap-4">
-              <button className="px-4 py-2 bg-yellow-200 rounded-lg">Ver Detalhes</button>
-              <button
-                onClick={cancelarViagem}
-                className="px-4 py-2 border border-gray-300 rounded-lg"
+              <p>
+                <strong>Motorista:</strong> {proximaViagem.motorista}
+              </p>
+              <p>
+                <strong>Origem:</strong> {proximaViagem.origem}
+              </p>
+              <p>
+                <strong>Destino:</strong> {proximaViagem.destino}
+              </p>
+              <p>
+                <strong>Status:</strong> {proximaViagem.status}
+              </p>
+
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={cancelarCorrida}
+                className="mt-6 w-full py-3 bg-gray-800 text-white rounded-xl"
               >
                 Cancelar
-              </button>
-            </div>
-          </div>
-        )}
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

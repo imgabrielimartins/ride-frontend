@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext"; // ADICIONE ESTA LINHA
+import { AuthProvider } from "./contexts/AuthContext";
 import Footer from "./components/footer/footer";
 import Navbar from "./components/navbar/navbar";
 import Home from "./pages/home/Home";
@@ -11,32 +11,36 @@ import Sobre from "./pages/sobre/Sobre";
 import ListaCategorias from "./components/categoria/listacategorias/ListaCategorias";
 import FormCategoria from "./components/categoria/formcategoria/FormCategoria";
 import DeletarCategoria from "./components/categoria/cardcategoria/CardCategoria";
+import DashboardMotorista from "./pages/home/homemotorista/DashboardMotorista";
+import DashboardPassageiro from "./pages/home/homepassageiro/DashboardPassageiro";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <AuthProvider>
-          <ToastContainer />
-          <Navbar />
-          <main className="min-h-screen flex flex-col">
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/home' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/cadastro' element={<Cadastro />} />
-              <Route path="/perfil" element={<PerfilPage />} />
-              <Route path="/sobre" element={<Sobre />} />
-              <Route path="/categorias" element={<ListaCategorias />} />
-              <Route path="/cadastrarcategoria" element={<FormCategoria/>} />
-              <Route path="/editarcategoria/:id" element={<FormCategoria/>} />
-              <Route path="/deletarcategoria/:id" element={<DeletarCategoria/>} />
-            </Routes>
-          </main>
-          <Footer />
-        </AuthProvider>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <AuthProvider>
+        <ToastContainer />
+        <Navbar />
+
+        <main className="min-h-screen flex flex-col">
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/cadastro' element={<Cadastro />} />
+            <Route path="/perfil" element={<PerfilPage />} />
+            <Route path="/sobre" element={<Sobre />} />
+            <Route path="/categorias" element={<ListaCategorias />} />
+            <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+            <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+            <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+            <Route path="/dashboard-motorista" element={<DashboardMotorista />} />
+            <Route path="/dashboard-passageiro" element={<DashboardPassageiro />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
