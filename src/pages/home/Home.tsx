@@ -23,7 +23,7 @@ function Home() {
 
   return (
     <main>
-      <section className="font-roboto flex bg-cover sm:bg-center bg-[position:65%_35%] w-full min-h-110" style={{
+      <section className="font-roboto flex bg-cover sm:bg-center bg-position-[65%_35%] w-full min-h-110" style={{
         backgroundImage: `url(${homeImg})`
       }}>
         <div className="flex flex-col w-full">
@@ -54,7 +54,7 @@ function Home() {
                   name="data"
                   className="text-gray-600 border rounded-sm p-1 font-regular indent-3 sm:max-w-[60cqmin] w-full"
                 />
-                <button className="border rounded-sm p-1 font-regular w-43 bg-black/80 font-semibold sm:max-w-[34cqmin] w-full"><p className="bg-gradient-to-r from-[#FFF7AD] to-[#FFA9F9] bg-clip-text text-transparent">Achar uma viagem</p></button>
+                <button className="border rounded-sm p-1 font-regular w-43 bg-black/80 font-semibold sm:max-w-[34cqmin] w-full"><p className="bg-linear-to-r from-[#FFF7AD] to-[#FFA9F9] bg-clip-text text-transparent">Achar uma viagem</p></button>
               </form>
               <div className="shadow-lg ml-auto mt-auto mr-4 sm:mr-12 bg-white rounded-xl p-3 font-semibold">
                 <p>Você é motorista?</p>
