@@ -205,7 +205,7 @@ function Home() {
               </button>
             </div>
 
-            <p className="bg-gradient-to-r from-pink-500 to-pink-500 p-3 rounded-lg mb-5 ml-5 sm:ml-20 max-w-150 sm:w-fit text-center text-white font-bold mt-5 text-xl self-start shadow-lg">
+            <p className="invisible bg-gradient-to-r from-pink-500 to-pink-500 p-3 rounded-lg mb-5 ml-5 sm:ml-20 max-w-150 sm:w-fit text-center text-white font-bold mt-5 text-xl self-start shadow-lg">
               Liberdade para ser e viajar com segurança
             </p>
           </section>
