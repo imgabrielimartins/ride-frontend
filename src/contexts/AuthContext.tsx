@@ -19,6 +19,7 @@ interface AuthContextProps {
     usuario: UsuarioLogin;
     handleLogout(): void;
     handleLogin(usuario: UsuarioLogin): Promise<void>;
+    atualizarUsuario(usuarioAtualizado: Partial<UsuarioLogin>): void;
     isLoading: boolean;
     isMotorista: boolean;
     isPassageiro: boolean;
@@ -62,40 +63,53 @@ export function AuthProvider({ children }: AuthProvidersProps) {
     }, []);
 
     async function handleLogin(usuarioLogin: UsuarioLogin) {
-    if (!usuarioLogin.tipoUsuario) {
-        ToastAlerta('Selecione se você é motorista ou passageiro!', 'error');
-        return;
+        if (!usuarioLogin.tipoUsuario) {
+            ToastAlerta('Selecione se você é motorista ou passageiro!', 'error');
+            return;
+        }
+        setIsLoading(true);
+        try {
+            await login("/usuarios/logar", usuarioLogin, (usuarioRetornado: UsuarioLogin) => {
+                const usuarioCompleto = {
+                    ...usuarioRetornado,
+                    tipoUsuario: usuarioLogin.tipoUsuario, 
+                    senha: "" 
+                };
+                
+                setUsuario(usuarioCompleto);
+                localStorage.setItem('token', usuarioRetornado.token);
+                localStorage.setItem('usuario', JSON.stringify({
+                    id: usuarioRetornado.id,
+                    nome: usuarioRetornado.nome,
+                    usuario: usuarioRetornado.usuario,
+                    tipoUsuario: usuarioLogin.tipoUsuario,
+                    foto: usuarioRetornado.foto,
+                    produto: usuarioRetornado.produto
+                }));
+                ToastAlerta('Login realizado com sucesso!', 'success');
+                navigate("/home");
+            });
+        } catch {
+            ToastAlerta('Os dados do usuário estão inconsistentes!', 'error');
+            throw new Error('Erro no login');
+        } finally {
+            setIsLoading(false);
+        }
     }
-    setIsLoading(true);
-    try {
-        await login("/usuarios/logar", usuarioLogin, (usuarioRetornado: UsuarioLogin) => {
-            
-            const usuarioCompleto = {
-                ...usuarioRetornado,
-                tipoUsuario: usuarioLogin.tipoUsuario, 
-                senha: "" 
-            };
-            
-            setUsuario(usuarioCompleto);
-            localStorage.setItem('token', usuarioRetornado.token);
-            localStorage.setItem('usuario', JSON.stringify({
-                id: usuarioRetornado.id,
-                nome: usuarioRetornado.nome,
-                usuario: usuarioRetornado.usuario,
-                tipoUsuario: usuarioLogin.tipoUsuario,
-                foto: usuarioRetornado.foto,
-                produto: usuarioRetornado.produto
-            }));
-            ToastAlerta('Login realizado com sucesso!', 'success');
-            navigate("/home");
-        });
-    } catch {
-        ToastAlerta('Os dados do usuário estão inconsistentes!', 'error');
-        throw new Error('Erro no login');
-    } finally {
-        setIsLoading(false);
+
+    function atualizarUsuario(usuarioAtualizado: Partial<UsuarioLogin>) {
+        const novoUsuario = { ...usuario, ...usuarioAtualizado };
+        setUsuario(novoUsuario);
+        
+        localStorage.setItem('usuario', JSON.stringify({
+            id: novoUsuario.id,
+            nome: novoUsuario.nome,
+            usuario: novoUsuario.usuario,
+            tipoUsuario: novoUsuario.tipoUsuario,
+            foto: novoUsuario.foto,
+            produto: novoUsuario.produto
+        }));
     }
-}
 
     function handleLogout() {
         setUsuario({
@@ -119,6 +133,7 @@ export function AuthProvider({ children }: AuthProvidersProps) {
                 usuario,
                 handleLogin,
                 handleLogout,
+                atualizarUsuario,
                 isLoading,
                 isMotorista: usuario.tipoUsuario === "MOTORISTA",
                 isPassageiro: usuario.tipoUsuario === "PASSAGEIRO",

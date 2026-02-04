@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { UserIcon, CameraIcon, X, CheckIcon } from '@phosphor-icons/react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import type Usuario from '../../../models/Usuario';
 import { ToastAlerta } from '../../../util/ToastAlerta';
+import { AuthContext } from '../../../contexts/AuthContext';
+import { atualizar, authHeader } from '../../../services/Service';
 
 interface PerfilUsuarioProps {
     usuario: Usuario;
     onUpdate: (usuarioAtualizado: Usuario) => void;
 }
-
 
 const GENEROS = [
     "Feminino",
@@ -24,6 +25,8 @@ const GENEROS = [
 ];
 
 function PerfilUsuario({ usuario, onUpdate }: PerfilUsuarioProps) {
+    const { usuario: usuarioContext, atualizarUsuario } = useContext(AuthContext);
+    
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<Omit<Usuario, 'id' | 'produto'>>({
@@ -99,16 +102,27 @@ function PerfilUsuario({ usuario, onUpdate }: PerfilUsuarioProps) {
 
         setLoading(true);
         try {
-
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
             const usuarioAtualizado: Usuario = {
                 ...usuario,
                 ...formData,
                 senha: formData.senha || usuario.senha,
             };
 
-            onUpdate(usuarioAtualizado);
+            await atualizar(
+                `/usuarios/atualizar`,
+                usuarioAtualizado,
+                (dados: Usuario) => {
+                    atualizarUsuario({
+                        nome: dados.nome,
+                        usuario: dados.usuario,
+                        foto: dados.foto
+                    });
+                    
+                    onUpdate(dados);
+                },
+                authHeader(usuarioContext.token)
+            );
+
             ToastAlerta('Perfil atualizado com sucesso!', 'sucesso');
             setIsEditing(false);
             setFormData((prev) => ({ ...prev, senha: '' }));
@@ -234,7 +248,6 @@ function PerfilUsuario({ usuario, onUpdate }: PerfilUsuarioProps) {
                                     </div>
                                 )) as unknown as React.ReactNode}
                             </Popup>
-
                         )}
                     </div>
 
