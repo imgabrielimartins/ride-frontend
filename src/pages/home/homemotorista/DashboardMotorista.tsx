@@ -44,6 +44,7 @@ export default function DashboardUsuario() {
           <p className="text-gray-800 break-all">{usuario.usuario}</p>
         </div>
 
+
       </div>
 
       <div>

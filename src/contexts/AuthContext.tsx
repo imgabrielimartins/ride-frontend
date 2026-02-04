@@ -46,24 +46,15 @@ export function AuthProvider({ children }: AuthProvidersProps) {
     });
     
     const [isLoading, setIsLoading] = useState(false);
-    
-    const isMotorista = usuario.tipoUsuario === "MOTORISTA";
-    const isPassageiro = usuario.tipoUsuario === "PASSAGEIRO";
-    const isAuthenticated = usuario.token !== "";
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         const usuarioSalvo = localStorage.getItem('usuario');
-        
         if (token && usuarioSalvo) {
             try {
                 const usuarioData = JSON.parse(usuarioSalvo);
-                setUsuario({
-                    ...usuarioData,
-                    token: token,
-                    senha: ""
-                });
-            } catch (error) {
+                setUsuario({ ...usuarioData, token, senha: "" });
+            } catch {
                 localStorage.removeItem('token');
                 localStorage.removeItem('usuario');
             }
@@ -71,45 +62,40 @@ export function AuthProvider({ children }: AuthProvidersProps) {
     }, []);
 
     async function handleLogin(usuarioLogin: UsuarioLogin) {
-        if (!usuarioLogin.tipoUsuario) {
-            ToastAlerta('Selecione se você é motorista ou passageiro!', 'error');
-            return;
-        }
-        
-        setIsLoading(true);
-        
-        try {
-            await login(`/usuarios/logar`, usuarioLogin, (usuarioRetornado: UsuarioLogin) => {
-                setUsuario(usuarioRetornado);
-                
-                localStorage.setItem('token', usuarioRetornado.token);
-                localStorage.setItem('usuario', JSON.stringify({
-                    id: usuarioRetornado.id,
-                    nome: usuarioRetornado.nome,
-                    usuario: usuarioRetornado.usuario,
-                    tipoUsuario: usuarioLogin.tipoUsuario,
-                    foto: usuarioRetornado.foto,
-                    produto: usuarioRetornado.produto
-                }));
-            });
-            
-            ToastAlerta('Login realizado com sucesso!', 'success');
-            
-            setTimeout(() => {
-                if (usuarioLogin.tipoUsuario === "MOTORISTA") {
-                    navigate("/home");
-                } else {
-                    navigate("/home");
-                }
-            }, 100);
-            
-        } catch (error: any) {
-            ToastAlerta('Os dados do usuário estão inconsistentes!', 'error');
-            throw error;
-        } finally {
-            setIsLoading(false);
-        }
+    if (!usuarioLogin.tipoUsuario) {
+        ToastAlerta('Selecione se você é motorista ou passageiro!', 'error');
+        return;
     }
+    setIsLoading(true);
+    try {
+        await login("/usuarios/logar", usuarioLogin, (usuarioRetornado: UsuarioLogin) => {
+            
+            const usuarioCompleto = {
+                ...usuarioRetornado,
+                tipoUsuario: usuarioLogin.tipoUsuario, 
+                senha: "" 
+            };
+            
+            setUsuario(usuarioCompleto);
+            localStorage.setItem('token', usuarioRetornado.token);
+            localStorage.setItem('usuario', JSON.stringify({
+                id: usuarioRetornado.id,
+                nome: usuarioRetornado.nome,
+                usuario: usuarioRetornado.usuario,
+                tipoUsuario: usuarioLogin.tipoUsuario,
+                foto: usuarioRetornado.foto,
+                produto: usuarioRetornado.produto
+            }));
+            ToastAlerta('Login realizado com sucesso!', 'success');
+            navigate("/home");
+        });
+    } catch {
+        ToastAlerta('Os dados do usuário estão inconsistentes!', 'error');
+        throw new Error('Erro no login');
+    } finally {
+        setIsLoading(false);
+    }
+}
 
     function handleLogout() {
         setUsuario({
@@ -119,12 +105,11 @@ export function AuthProvider({ children }: AuthProvidersProps) {
             tipoUsuario: "",
             senha: "",
             foto: "",
-            token: ""
+            token: "",
+            produto: []
         });
-        
         localStorage.removeItem('token');
         localStorage.removeItem('usuario');
-        
         navigate("/login");
     }
 
@@ -135,9 +120,9 @@ export function AuthProvider({ children }: AuthProvidersProps) {
                 handleLogin,
                 handleLogout,
                 isLoading,
-                isMotorista,
-                isPassageiro,
-                isAuthenticated
+                isMotorista: usuario.tipoUsuario === "MOTORISTA",
+                isPassageiro: usuario.tipoUsuario === "PASSAGEIRO",
+                isAuthenticated: usuario.token !== ""
             }}
         >
             {children}
