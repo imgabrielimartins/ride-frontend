@@ -16,7 +16,7 @@
 
 ## 📋 Descrição
 
-O **Ride Frontend** é uma aplicação web moderna desenvolvida com React e TypeScript, projetada para facilitar a gestão de caronas e transporte compartilhado. A plataforma oferece uma interface intuitiva e responsiva, permitindo que usuários encontrem, ofereçam e gerenciem caronas de forma eficiente e segura.
+O **Velo Frontend** é uma aplicação web moderna desenvolvida com React e TypeScript, projetada para facilitar a gestão de caronas e transporte compartilhado. A plataforma oferece uma interface intuitiva e responsiva, permitindo que usuários encontrem, ofereçam e gerenciem caronas de forma eficiente e segura.
 
 ### 🎯 Objetivos
 
