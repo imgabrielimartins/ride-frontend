@@ -6,9 +6,7 @@
   ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
   ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
   
-  **Uma plataforma moderna para gestão de caronas e transporte compartilhado**
-  
-  [Demo](#demonstração) • [Funcionalidades](#funcionalidades) • [Instalação](#instalação) • [Documentação](#uso)
+  **Uma plataforma moderna para gestão de caronas e transporte compartilhado*
   
 </div>
 
