@@ -70,17 +70,15 @@ O **Velo Frontend** é uma aplicação web moderna desenvolvida com React e Type
 - **Context API** / **Redux** - Gerenciamento de estado global
 
 ### Estilização
-- **CSS Modules** / **Styled Components** - Estilização componentizada
-- **Tailwind CSS** (opcional) - Framework CSS utility-first
+- **Tailwind CSS** - Framework CSS utility-first
 
 ### Comunicação com API
 - **Axios** - Cliente HTTP para requisições
-- **React Query** - Gerenciamento de cache e requisições
 
 ### Ferramentas de Desenvolvimento
 - **ESLint** - Linter para código JavaScript/TypeScript
 - **Prettier** - Formatador de código
-- **Vite** - Hot Module Replacement (HMR)
+- **Vite** - Hot Module Replacement 
 
 ---
 
@@ -202,30 +200,9 @@ const fetchRides = async (origin: string, destination: string) => {
 
 ---
 
-## 🎨 Demonstração
-
-### Screenshots
-
-> 📸 _Adicione capturas de tela da aplicação aqui_
-
-**Página Inicial**
-```
-[Placeholder para screenshot da home]
-```
-
-**Busca de Caronas**
-```
-[Placeholder para screenshot da busca]
-```
-
-**Perfil do Usuário**
-```
-[Placeholder para screenshot do perfil]
-```
-
 ### Demo Online
 
-🌐 **[Acesse a demonstração ao vivo](https://ride-frontend-demo.vercel.app)** _(Placeholder - substitua pelo link real)_
+🌐 **[Acesse a demonstração ao vivo](https://ride-frontend-demo.vercel.app)**
 
 ---
 
@@ -301,12 +278,10 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 
 <div align="center">
 
-### Desenvolvido com ❤️ por [Seu Nome]
+### Desenvolvido com ❤️ por Grupo 4 - Vertex.bah
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/seu-usuario)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/seu-perfil)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:seu-email@example.com)
-[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white)](https://seu-portfolio.com)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/imgabrielimartins)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gabrielimartinsdev)
 
 ---
 
