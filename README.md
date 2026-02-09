@@ -280,9 +280,6 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 
 ### Desenvolvido com ❤️ por Grupo 4 - Vertex.bah
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/imgabrielimartins)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gabrielimartinsdev)
-
 ---
 
 ### 🌟 Se este projeto foi útil, considere dar uma estrela!
