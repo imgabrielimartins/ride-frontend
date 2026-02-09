@@ -287,7 +287,7 @@ Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](L
 
 ### 🌟 Se este projeto foi útil, considere dar uma estrela!
 
-**Projeto desenvolvido como parte do bootcamp Generation Brasil** 🇧🇷
+**Projeto desenvolvido como parte do bootcamp Generation Brasil**
 
 </div>
 
